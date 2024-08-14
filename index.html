@@ -87,10 +87,10 @@
       <h1 class="text-badan text-3xl py-6 ">MISI</h1>
       <div class="grid gap-1">
         <ul class="list-decimal grid grid-cols-1 justify-center items-center align-middle mx-[500px] px-44 list-inside text-white">
-          <li class="text-lg text-center"> 1. Menyelenggarakan pendidikan teknologi informasi yang berkualitas, kompetitif dan siap bersaing dalam pasar profesional serta mampu menciptakan peluang kerja baru.</li> <br>
-          <li class="text-lg text-center"> 2. Melakukan riset pengembangan teknologi vang mampu berinovasi, berkualitas, beradaptasi dan berkontribusi dalam kemajuan bidang ilmu teknologi informasi.</li> <br>
-          <li class="text-lg text-center"> 3. Melaksanakan pengabdian kepada masyarakat secara berkelanjutan dalam meningkatkan pengetahuan dan pemanfaatan teknologi informasi untuk mencerdaskan kehidupan bangsa.</li><br>
-          <li class="text-lg text-center"> 4. Melakukan kerjasama dengan berbagai Stakenolder dalam pengembangan ilmu teknologi informasi.</li>
+          <li class="text-lg text-center">  Menyelenggarakan pendidikan teknologi informasi yang berkualitas, kompetitif dan siap bersaing dalam pasar profesional serta mampu menciptakan peluang kerja baru.</li> <br>
+          <li class="text-lg text-center">  Melakukan riset pengembangan teknologi vang mampu berinovasi, berkualitas, beradaptasi dan berkontribusi dalam kemajuan bidang ilmu teknologi informasi.</li> <br>
+          <li class="text-lg text-center">  Melaksanakan pengabdian kepada masyarakat secara berkelanjutan dalam meningkatkan pengetahuan dan pemanfaatan teknologi informasi untuk mencerdaskan kehidupan bangsa.</li><br>
+          <li class="text-lg text-center">  Melakukan kerjasama dengan berbagai Stakenolder dalam pengembangan ilmu teknologi informasi.</li>
         </ul>
       </div>
     </div>
@@ -222,32 +222,28 @@
 </footer>
 <!-- footer end -->
 
-<div class="container mx-auto">
-  <div class="fixed bottom-8 right-8">
-      <div class="relative">
-          <div class="bg-gray-800 w-80 h-96 flex flex-col transition-opacity duration-500 transform chatbox__support">
-              <div class="sticky top-0 bg-gradient-to-r from-red-800 to-red-600 flex items-center justify-center p-4 rounded-t-lg shadow-lg chatbox__header">
-                  <div class="mr-2">
-                      <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image" class="w-8 h-8">
-                  </div>
-                  <div>
-                      <h4 class="text-xl text-white">ASK ME</h4>
-                    <p class="text-sm text-white">HAI!, Ada Yang Bisa Saya Bantu</p>
-                  </div>
+<div class="container fixed bottom-8 right-8">
+  <div class="chatbox ">
+      <div class="chatbox__support rounded-xl ">
+          <div class="chatbox__header">
+              <div class="chatbox__image--header">
+                  <img src="/dist/images/logo.jpeg" class="w-20 h-15 rounded-full"  alt="image">
               </div>
-              <div class="flex-grow overflow-y-auto flex flex-col-reverse p-4 chatbox__messages">
-                  <!-- Messages will go here -->
-              </div>
-              <div class="sticky bottom-0 flex items-center justify-between p-4 bg-gradient-to-l from-purple-800 to-purple-600 shadow-inner rounded-b-lg mt-4 chatbox__footer">
-                  <input type="text" placeholder="Write a message..." class="flex-grow p-2 rounded-full border-none outline-none">
-                  <button class="text-white ml-2 send__button">Send</button>
+              <div class="chatbox__content--header">
+                  <h4 class="chatbox__heading--header">BOT_IT </h4>
+                  <p class="chatbox__description--header">Hi. Nama Saya BOT It Ada yg bisa saya bantu?</p>
               </div>
           </div>
-          <div class="text-right chatbox__button">
-              <button class="p-2 bg-white rounded-full shadow-lg">
-                  <img src="/dist/images/chatbox-icon.svg" alt="Chatbox Icon" class="w-10 h-10">
-              </button>
+          <div class="chatbox__messages">
+              <div></div>
           </div>
+          <div class="chatbox__footer">
+              <input type="text" placeholder="Write a message...">
+              <button class="chatbox__send--footer send__button text-white bg-white rounded-xl  ">Send</button>
+          </div>
+      </div>
+      <div class="chatbox__button">
+          <button><img src="dist/images/us.png" class="w-12 h-12" /></button>
       </div>
   </div>
 </div>

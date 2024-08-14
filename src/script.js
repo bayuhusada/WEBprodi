@@ -1,87 +1,108 @@
 class Chatbox {
-  constructor() {
-      this.args = {
-          openButton: document.querySelector('.chatbox__button button'),
-          chatBox: document.querySelector('.chatbox__support'),
-          sendButton: document.querySelector('.send__button')
-      }
-      console.log(this.args);
-      this.state = false;
-      this.messages = [];
-  }
+    constructor() {
+        this.args = {
+            openButton: document.querySelector('.chatbox__button'),
+            chatBox: document.querySelector('.chatbox__support'),
+            sendButton: document.querySelector('.send__button')
+        }
 
-  display() {
-      const { openButton, chatBox, sendButton } = this.args;
+        this.state = false;
+        this.messages = [];
+    }
 
-      openButton.addEventListener('click', () => this.toggleState(chatBox))
+    display() {
+        const { openButton, chatBox, sendButton } = this.args;
 
-      sendButton.addEventListener('click', () => this.onSendButton(chatBox))
+        openButton.addEventListener('click', () => this.toggleState(chatBox));
 
-      const node = chatBox.querySelector('input');
-      node.addEventListener("keyup", ({ key }) => {
-          if (key === "Enter") {
-              this.onSendButton(chatBox)
-          }
-      })
-  }
+        sendButton.addEventListener('click', () => this.onSendButton(chatBox));
 
-  toggleState(chatbox) {
-      this.state = !this.state;
+        const node = chatBox.querySelector('input');
+        node.addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                this.onSendButton(chatBox);
+            }
+        });
+    }
 
-      // show or hide the box
-      if (this.state) {
-          chatbox.classList.add('chatbox--active')
-      } else {
-          chatbox.classList.remove('chatbox--active')
-      }
-  }
+    toggleState(chatbox) {
+        this.state = !this.state;
 
-  onSendButton(chatbox) {
-      var textField = chatbox.querySelector('input');
-      let text1 = textField.value
-      if (text1 === "") {
-          return;
-      }
+        // show or hides the box
+        if (this.state) {
+            chatbox.classList.add('chatbox--active');
+        } else {
+            chatbox.classList.remove('chatbox--active');
+        }
+    }
 
-      let msg1 = { name: "User", message: text1 }
-      this.messages.push(msg1);
+    onSendButton(chatbox) {
+        var textField = chatbox.querySelector('input');
+        let text1 = textField.value;
+        if (text1 === "") {
+            return;
+        }
 
-      fetch('http://127.0.0.1:5000/predict', {
-          method: 'POST',
-          body: JSON.stringify({ message: text1 }),
-          mode: 'cors',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-      })
-          .then(r => r.json())
-          .then(r => {
-              let msg2 = { name: "Sam", message: r.answer };
-              this.messages.push(msg2);
-              this.updateChatText(chatbox)
-              textField.value = ''
+        let msg1 = { name: "User", message: text1 };
+        this.messages.push(msg1);
 
-          }).catch((error) => {
-              console.error('Error:', error);
-              this.updateChatText(chatbox)
-              textField.value = ''
-          });
-  }
+        fetch('http://127.0.0.1:5000/predict', {
+            method: 'POST',
+            body: JSON.stringify({ message: text1 }),
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(r => r.json())
+            .then(r => {
+                let msg2 = { name: "Sam", message: r.answer };
+                this.messages.push(msg2);
+                this.updateChatText(chatbox);
+                textField.value = '';
 
-  updateChatText(chatbox) {
-      var html = '';
-      this.messages.slice().reverse().forEach(function (item, index) {
-          if (item.name === "Sam") {
-              html += '<div class="messages__item messages__item--visitor bg-gray-200 p-2 rounded-t-lg rounded-br-lg my-2">' + item.message + '</div>'
-          }
-          else {
-              html += '<div class="messages__item messages__item--operator bg-purple-800 text-white p-2 rounded-t-lg rounded-bl-lg my-2">' + item.message + '</div>'
-          }
-      });
+            }).catch((error) => {
+                console.error('Error:', error);
+                this.updateChatText(chatbox);
+                textField.value = '';
+            });
+    }
 
-      const chatmessage = chatbox.querySelector('.chatbox__messages');
-      chatmessage.innerHTML = html;
-  }
+    typeEffect(element, text, speed, callback) {
+        let i = 0;
+        element.innerHTML = ''; // Clear any existing content
+        let interval = setInterval(function () {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(interval);
+                if (callback) callback(); // Call callback when typing is done
+            }
+        }, speed);
+    }
+
+    updateChatText(chatbox) {
+        const chatmessage = chatbox.querySelector('.chatbox__messages');
+        chatmessage.innerHTML = ''; // Clear existing messages
+
+        this.messages.slice().reverse().forEach((item, index) => {
+            let messageElement = document.createElement('div');
+            if (item.name === "Sam") {
+                messageElement.className = 'messages__item messages__item--visitor';
+                chatmessage.appendChild(messageElement);
+                if (index === 0 || this.messages.length === 1) { // Only apply typing effect to the most recent message
+                    this.typeEffect(messageElement, item.message, 20);
+                } else {
+                    messageElement.textContent = item.message; // For previous messages, display immediately
+                }
+            } else {
+                messageElement.className = 'messages__item messages__item--operator';
+                messageElement.textContent = item.message;
+                chatmessage.appendChild(messageElement);
+            }
+        });
+    }
 }
 
 const chatbox = new Chatbox();
