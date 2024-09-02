@@ -46,7 +46,7 @@ class Chatbox {
         let msg1 = { name: "User", message: text1 };
         this.messages.push(msg1);
 
-        fetch('http://127.0.0.1:5000/predict', {
+        fetch('https://6d20-2001-448a-5080-3f98-3c9d-c717-4ed8-33f8.ngrok-free.app/predict', {
             method: 'POST',
             body: JSON.stringify({ message: text1 }),
             mode: 'cors',
